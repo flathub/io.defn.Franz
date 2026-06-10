@@ -1,8 +1,9 @@
 app-id: io.defn.Franz
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 command: Franz
+rename-icon: icon
 finish-args:
   - --share=ipc
   - --share=network
@@ -11,16 +12,20 @@ finish-args:
 modules:
   - name: Franz
     buildsystem: simple
+    build-options:
+      no-debuginfo: true
     build-commands:
       - cp -r bin /app/bin
       - cp -r lib /app/lib
-      - install -D icon.svg /app/share/icons/hicolor/scalable/apps/io.defn.Franz.svg
-      - install -D io.defn.Franz.desktop /app/share/applications/io.defn.Franz.desktop
-      - install -D io.defn.Franz.appdata.xml /app/share/appdata/io.defn.Franz.appdata.xml
-    build-options:
-      no-debuginfo: true
+      - install -D icon.svg -t /app/share/icons/hicolor/scalable/apps/
+      - install -D io.defn.Franz.desktop -t /app/share/applications/
+      - install -D io.defn.Franz.metainfo.xml -t /app/share/metainfo/
     sources:
       - type: archive
-        url: 'https://franz.defn.io/releases/Franz 1.6.0002.linux.x86_64.tar.gz'
-        sha256: 2e8e6307c1ba0f3b2c0c300bc123a06403fcf1639c2bf6e46b02b414dd407edd
+        url: https://franz.defn.io/releases/Franz%20Latest.linux.x86_64.tar.gz
+        sha256: 71a459d24dee787c2c8b57af3d1dc9b6f61bdc956487224cc8d6a4e1370b3807
         strip-components: 0
+      - type: file
+        path: io.defn.Franz.metainfo.xml
+      - type: file
+        path: io.defn.Franz.desktop
